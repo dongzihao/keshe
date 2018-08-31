@@ -12,4 +12,4 @@ dosbox		虚拟 DOS 环境的软件 DosBox 0.72
 DISK_C		虚拟的 DOS 环境的 C:\
   └BORLANDC	Borland C/C++ 3.1 程序文件
 
-Alt + Enter 可以切换全屏/窗口。
+Alt + Enter 可以切换全屏/窗口。fdsjfkdsjf
