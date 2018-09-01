@@ -14,8 +14,9 @@
 
 
 void setwelcome();
-void logal(int x0,int y0,int coulor);
+void logal(int x,int y,int coulor);
 void backgroundsetting(int x0,int y0);
 void logfield(int x0,int y0);
+void lowside(int x0,int y0);
 #endif
 

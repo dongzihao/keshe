@@ -7,12 +7,14 @@
 
 
 
+
 void main(){
 	int driver=VGA;
 	int mode=VGAHI;
 	initgraph(&driver,&mode,"C:\\BORLANDC\\BGI");
 	cleardevice();
 	setwelcome();
+	
 	
 	getch();
 	closegraph();
