@@ -12,8 +12,7 @@ void main(){
 	int mode=VGAHI;
 	initgraph(&driver,&mode,"C:\\BORLANDC\\BGI");
 	cleardevice();
-		
-	showString(100,100,"´ºÃß²»¾õÏþ",RED,3);
+	setwelcome();
 	
 	getch();
 	closegraph();
