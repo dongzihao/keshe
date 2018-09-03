@@ -174,7 +174,7 @@ void mouseInit(int *mx,int *my, int *mbutt)
 		else *mbutt = 0;
 		
 
-	} while (xnew == xx0&&ynew == yy0&&*mbutt == buto);
+	} while (0);
 	*mx = xnew;
 	*my = ynew;
 	if (*mbutt)

@@ -13,7 +13,7 @@ void userRegist()
 	char s[10];
 	int *hxz;
 	setuser u;//存储用户信息
-	int mx,my,buttons,judge,temp,hx,jcode=2;
+	int mx,my,buttons,judge,temp,hx,jcode=2;//jcode用来判断确认密码和密码是否一致
 	int i,j,k;//分别用来帮助输出的参数
 	registFace();
 	mouseInit(&mx,&my,&buttons);
@@ -54,31 +54,6 @@ void userRegist()
 		        while(1)
 				{    
 			       newxy(&mx,&my,&buttons);
-				   /*if (mx >= 200 && mx <= 600 && my >= 200 && my <= 245 && buttons)
-				   {
-					judge = 2;
-			        break;
-				   }         //if（鼠标点击新密码输入区域）
-	               else if (mx >= 200 && mx <= 600 && my >= 280 && my <= 325 && buttons)
-				   {
-					judge = 3;
-			        break;
-				   }         //if(鼠标点击再输入一次密码区域
-				   else if (mx >= 230 && mx <= 460 && my >= 360 && my <= 415 && buttons)
-				   {
-					 judge = 4;
-					 break;
-				   }         //if(鼠标点击注册完成区域
-	               else if (mx >= 300 && mx <= 455 && my >= 437 && my <= 455 && buttons)
-				   {
-					 judge = 5;
-					 break;
-				   } */
-				   if (((mx <= 200 || mx >= 600 || my <= 120 || my >= 165) && buttons)==1)
-				   {
-					   judge=0;
-					   break;
-				   }
                    if(kbhit()!=0)
 	               {
 					 
@@ -92,6 +67,16 @@ void userRegist()
 					    judge=0;
 					     break;
 				   }
+				   if(judge!=jjudge(mx,my,buttons,judge))
+				   {
+					   judge=jjudge(mx,my,buttons,judge);
+					   break;
+				   }
+				   if (((mx <= 200 || mx >= 600 || my <= 120 || my >= 165) && buttons)==1)
+				   {
+					   judge=0;
+					   break;
+				   }
 			    }
 				
 				break;
@@ -101,31 +86,6 @@ void userRegist()
 		        while(1)
 				{    
 			       newxy(&mx,&my,&buttons);
-				    /*if (mx >= 200 && mx <= 600 && my >= 120 && my <= 165 && buttons)
-				   {
-					judge = 1;
-			        break;
-				   }         //if（鼠标点击新密码输入区域）
-	               else if (mx >= 200 && mx <= 600 && my >= 280 && my <= 325 && buttons)
-				   {
-					judge = 3;
-			        break;
-				   }         //if(鼠标点击再输入一次密码区域
-				   else if (mx >= 230 && mx <= 460 && my >= 360 && my <= 415 && buttons)
-				   {
-					 judge = 4;
-					 break;
-				   }         //if(鼠标点击注册完成区域
-	               else if (mx >= 300 && mx <= 455 && my >= 437 && my <= 455 && buttons)
-				   {
-					 judge = 5;
-					 break;
-				   } */
-				   if (((mx <= 200 || mx >= 600 || my <= 120 || my >= 165) && buttons)==1)
-				   {
-					   break;
-				   }
-				   
 				   if(kbhit()!=0)
 	               {
 					 
@@ -136,31 +96,70 @@ void userRegist()
 				   }
 				   if(j>=10)
 				   {
+					     judge=0;
 					     break;
 				   }
+				   if(judge!=jjudge(mx,my,buttons,judge))
+				   {
+					   judge=jjudge(mx,my,buttons,judge);
+					   break;
+				   }
+				   if (((mx <= 200 || mx >= 600 || my <= 200 || my >= 245) && buttons)==1)
+				   {
+					   judge=0;
+					   break;
+				   }
+				   
 			    }
 		        break;
 		 
 		 
 		case 3://*********确认密码*******//
-		        for(i=0;i<10;i++)
-		        {
-			      s[i]=searchKeyValue(temp);
-		        }
-		        if(strcmp(s,u.c)==0)
+		          while(1)
+				{    
+			       newxy(&mx,&my,&buttons);
+				   if(kbhit()!=0)
+	               {
+					 
+		             temp=bioskey(0);
+					 s[k]=searchKeyValue(temp);
+					 outtextxy(199+k*24,279,&s[k]);
+					 k++;
+				   }
+				   if(k>=10)
+				   {
+					     judge=0;
+					     break;
+				   }
+				   if(judge!=jjudge(mx,my,buttons,judge))
+				   {
+					   judge=jjudge(mx,my,buttons,judge);
+					   break;
+				   }
+				   if (((mx <= 200 || mx >= 600 || my <= 280 || my >= 325) && buttons)==1)
+				   {
+					   judge=0;
+					   break;
+				   }
+				   
+			    }
+		        
+		       
+			    break;
+		 
+		 
+		case 4://***注册成功***//
+		       if(strcmp(s,u.c)==0)
 		        {
 			      jcode=1;
 				  hx=haxi(u.c);
 				  hxz = &hx;
 		        } 
 		        else jcode=0;
-			    break;
-		 
-		 
-		case 4://***注册成功***//
 		        switch(jcode)
 		       {
 			    case 0: //密码不一致
+				showString( 465, 360,"密码不一致" ,WHITE,2);
 			    break;
 			    case 1: //注册成功
 			       if ((fp = fopen("FILES\\user\\usercode.txt", "r+")) == NULL)
@@ -173,13 +172,14 @@ void userRegist()
 				   fwrite(u.c,10,1,fp);
 				   fwrite(hxz,2,1,fp);
 				   fclose(fp);
+				   showString( 465, 360,"注册成功" ,WHITE,2);
 				break;
 			    case 3: //直接点注册
-			 
+			    showString( 465, 360,"注册失败" ,WHITE,2);
 			    break;
 		        }
-		 
-	    break;
+		        judge=0;
+	            break;
 		
 		
 		case 5://***返回***//
@@ -231,7 +231,34 @@ void userRegist()
 	showString(240, 215, "\xa3\xb1至\xa3\xb1\xa3\xb0位字母与数字组合",BLACK,1);
 	showString(210, 20, "新用户注册",LIGHTCYAN,3);
  }
- 
+ int jjudge(int mx,int my,int buttons,int judge)
+ { 
+        if (mx >= 200 && mx <= 600 && my >= 120 && my <= 165 && buttons)
+		{
+			return 1;
+		}
+        else if (mx >= 200 && mx <= 600 && my >= 200 && my <= 245 && buttons)
+	    {
+		    return 2;
+		}         //if（鼠标点击新密码输入区域）
+	    else if (mx >= 200 && mx <= 600 && my >= 280 && my <= 325 && buttons)
+	    {
+		    return 3;
+		}         //if(鼠标点击再输入一次密码区域
+	    else if (mx >= 230 && mx <= 460 && my >= 360 && my <= 415 && buttons)
+		{
+	        return 4;
+		}         //if(鼠标点击注册完成区域
+	    else if (mx >= 300 && mx <= 455 && my >= 437 && my <= 455 && buttons)
+		{
+		    return 5;
+	    } 
+		else
+		{
+		    return judge;
+	    }
+	 
+ }
  
  
  
