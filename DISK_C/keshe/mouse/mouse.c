@@ -147,7 +147,7 @@ void mouseInit(int *mx,int *my, int *mbutt)
 }
 
 
-int read(int *mx, int *my, int *mbutt)      //读取鼠标的位置
+  int readm(int *mx, int *my, int *mbutt)  //读取鼠标的位置
 {
 	static int mark = 0;  //按键按松开标志
 	int xx0 = *mx, yy0 = *my, buto = *mbutt;
@@ -198,7 +198,7 @@ void newxy(int *mx, int *my, int *mbutt)    //在新的位置处画鼠标
 	int xm, ym;
 
 
-	read(&xm, &ym, mbutt);
+	readm(&xm, &ym, mbutt);
 
 
 	if (xm != xx0 || ym != yy0)

@@ -1,20 +1,68 @@
 #include "welcFace.h"
+#include "struct.h"
+#include "userin.h"
+#include "mouse.h"
+
+//***欢迎界面****//
 void setwelcome()
 {
  int maxx,maxy,i,j,color;
+ int buttons,mx,my;
+ int temp,judge;
+ setbt bt[5];
+
+ 
+ 
  maxx=getmaxx();
  maxy=getmaxy();
+ newbt(maxx,maxy,bt);
  backgroundsetting(maxx,maxy);
  showString(maxx/2-144,26,"自助旅游系统",LIGHTRED,3);
  logfield(maxx/2-175,150);
  logal(60,60,2);
  lowside(maxx,maxy);
  
+ mouseInit(&mx,&my,&buttons);
+ while(1)
+ {
+	 newxy(&mx,&my,&buttons);
+	 judge=click(mx,my,bt,buttons);
+     switch(judge)
+	 {
+		 case 1://******输入账号******
+		 
+		 
+		 
+		 break;
+		 
+		 case 2://******输入密码*****
+		 
+		 break;
+		 
+		 case 3://*********登录*******
+		 
+		 break;
+		 
+		 case 4://***注册***//
+		 userRegist();
+		 
+		 
+		 break;
+		 case 5://***管理员登录***//
+		 
+		 
+		 break;
+		 case 0:
+		 break;
+		 
+	 }
+ }
+ 
  }
  
  
  
- 
+ //***背景设计********//
  void backgroundsetting(int x0,int y0)
  {
 	setfillstyle(1,15);
@@ -23,13 +71,14 @@ void setwelcome()
 	setfillstyle(1,11);
 	rectangle(0,0,x0,100);
 	floodfill(1,1,LIGHTCYAN);   
-}
+ }
  
  
  
- 
+ //*****设计logal******//
  void logal(int x,int y,int color)
 {
+	//************画飞机****************//
 	setcolor(color);
 	setlinestyle(0, 0, 2);
 	ellipse(x, y, 90, 250, 40, 16);
@@ -64,11 +113,41 @@ void setwelcome()
 	arc(530,55,110,360,20);
 	line(530,20,530,55);
 	
+	
+	//************画火车************//
+	
+	setlinestyle(0,0,2);
+	setcolor(12);
+	circle(50,435,15);
+	circle(100,435,15);
+	circle(180,435,15);
+	circle(230,435,15);
+	rectangle(20,380,260,420);
+	rectangle(40,340,45,380);
+	setlinestyle(0,0,2);
+	setcolor(BLACK);
+	rectangle(50,385,75,400);
+	rectangle(100,385,125,400);
+    rectangle(150,385,175,400);
+    rectangle(200,385,225,400);
+    setlinestyle(0,0,2);
+    setcolor(12);
+	ellipse(60,330,0,360,9,6);
+	ellipse(90,315,0,360,10,7);
+	line(192,430,218,430);
+	line(192,440,218,440);
+	line(62,430,88,430);
+    line(62,440,88,440);
+
+	
+	
+	
+	
  }
  
  
  
- 
+ //***登陆区域***//
  void logfield(int x0,int y0)
  {
 	 showString(x0+20,y0+10,"用户名",RED,1);
@@ -86,11 +165,13 @@ void setwelcome()
 	 showString(x0+228,y0+130,"注册",WHITE,1);
 	 bar(x0+90,y0+200,x0+250,y0+236);
 	 showString(x0+130,y0+210,"管理员登录",WHITE,1);
+	 
+	 
 } 
  
  
  
- 
+ //***底部设计***//
  void lowside(int x0,int y0)
  {
 	 setfillstyle(1,3);
@@ -102,4 +183,44 @@ void setwelcome()
 	 
 	 
 	 
+ }
+ //*******初始化按钮区域*******//
+   void newbt(int maxx,int maxy,setbt*bt)
+ {
+	 bt->s="账号输入";
+	 bt->a[0]=maxx/2-55;
+	 bt->a[1]=maxx/2+125;
+	 bt->a[2]=150;
+	 bt->a[3]=185;
+	 (bt+1)->s="密码输入";
+	 (bt+1)->a[0]=maxx/2-55;
+	 (bt+1)->a[1]=maxx/2+125;
+	 (bt+1)->a[2]=200;
+	 (bt+1)->a[3]=235;
+	 (bt+2)->s="登录";
+	 (bt+2)->a[0]=maxx/2-155;
+	 (bt+2)->a[1]=maxx/2-43;
+	 (bt+2)->a[2]=270;
+	 (bt+2)->a[3]=306;
+	 (bt+3)->s="注册";
+	 (bt+3)->a[0]=maxx/2+13;
+	 (bt+3)->a[1]=maxx/2+125;
+	 (bt+3)->a[2]=270;
+	 (bt+3)->a[3]=306;
+	 (bt+4)->s="管理员登录";
+	 (bt+4)->a[0]=maxx/2-60;
+	 (bt+4)->a[1]=maxx/2+75;
+	 (bt+4)->a[2]=350;
+	 (bt+4)->a[3]=386;
+ }
+ 
+ /**判定鼠标点击区域**/
+ int click(int mx,int my,struct button *bt,int buttons)
+ {
+	 if (mx >=bt->a[0]  && mx <= bt->a[1]&& my >=bt->a[2] && my <=bt->a[3] && buttons)return 1;   //if(鼠标点击【账号输入】区域)
+	 if (mx >=(bt+1)->a[0] && mx <=(bt+1)->a[1]&& my >=(bt+1)->a[2] && my <= (bt+1)->a[3] && buttons)return 2;   //if(鼠标点击【密码输入】区域)
+	 if (mx >= (bt+2)->a[0] && mx <=(bt+2)->a[1] && my >=(bt+2)->a[2] && my <=(bt+2)->a[3]&& buttons)return 3;   //if(鼠标点击【登陆】区域)
+	 if (mx >= (bt+3)->a[0] && mx <=(bt+3)->a[1] && my >=(bt+3)->a[2] && my <=(bt+3)->a[3] && buttons)return 4;    //if(鼠标点击【注册】区域)
+	 if (mx >= (bt+4)->a[0]&& mx <= (bt+4)->a[1] && my >= (bt+4)->a[2] && my <=(bt+4)->a[3] && buttons)return 5;  //if(鼠标点击【管理员登录】区域)
+     else return 0;
  }
