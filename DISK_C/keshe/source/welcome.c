@@ -2,15 +2,25 @@
 #include "struct.h"
 #include "userin.h"
 #include "mouse.h"
+#include "userin.h"
 
 //***»¶Ó­½çÃæ****//
 void setwelcome()
 {
- int maxx,maxy,i,j,color;
- int buttons,mx,my;
+ int maxx,maxy,color;
+ int buttons,mx,my,i,j;
  int temp,judge;
+ char acc[11],code[11];
  setbt bt[5];
-
+ static int inAcc=0,inCod=0;
+ for(i=0;i<11;i++)
+    {
+		acc[i]='\0';
+	}
+ for(j=0;j<11;j++)
+{
+	code[j]='\0';
+}
  
  
  maxx=getmaxx();
@@ -27,19 +37,23 @@ void setwelcome()
  {
 	 newxy(&mx,&my,&buttons);
 	 judge=click(mx,my,bt,buttons);
+	 if(kbhit()!=0)
+	 {
+	    temp=bioskey(0);
+	 }		//Çå¿Õ¼üÅÌ»º³åÇø//
      switch(judge)
 	 {
 		 case 1://******ÊäÈëÕËºÅ******
-		 
+		 inPutAccount(&mx,&my,&judge,acc,bt->a,inAcc);
 		 
 		 
 		 break;
 		 
 		 case 2://******ÊäÈëÃÜÂë*****
-		 
+		 inPutAccount(&mx,&my,&judge,code,(bt+1)->a,inCod);
 		 break;
 		 
-		 case 3://*********µÇÂ¼*******
+		 case 3://*********µÇÂ¼******
 		 
 		 break;
 		 
